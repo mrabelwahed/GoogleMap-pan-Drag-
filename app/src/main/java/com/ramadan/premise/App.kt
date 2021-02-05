@@ -1,4 +1,4 @@
-package com.ramadan.takeaway
+package com.ramadan.premise
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

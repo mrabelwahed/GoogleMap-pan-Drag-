@@ -1,4 +1,4 @@
-package com.ramadan.takeaway.util
+package com.ramadan.premise.util
 
 sealed class DataState <out R> {
     data class Success<out T>(val data: T) : DataState<T>()

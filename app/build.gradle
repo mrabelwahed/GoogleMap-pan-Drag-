@@ -58,6 +58,9 @@ dependencies {
     implementation Libs.multidex
     implementation Libs.fragmentKtx
     implementation Libs.hiltAndroid
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     kapt Libs.hiltAndroidCompiler
     implementation Libs.hiltLifeCycleViewModel
     kapt Libs.hiltCompiler
