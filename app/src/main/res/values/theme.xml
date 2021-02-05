@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="AppTheme" parent="Theme.AppCompat">
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight">
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
         <item name="colorAccent">@color/accentColor</item>
         <item name="android:windowBackground">@color/backgroundColor</item>
         <item name="android:textColorPrimary">@color/textColorPrimary</item>
+    </style>
+
+    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxStrokeColor">#F0F6FF</item>
+        <item name="boxStrokeWidth">2dp</item>
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorSurface">@color/primaryColor</item>
+        <item name="hintTextColor">@color/primaryColor</item>
+        <item name="android:textColorHint">@color/primaryColor</item>
     </style>
 </resources>

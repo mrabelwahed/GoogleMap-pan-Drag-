@@ -21,7 +21,7 @@ object Versions {
     val RULES_VER = "1.1.1"
     val TRUTH_VER = "1.1.0"
     val JUNIT_EXT_VER = "1.1.0"
-    val MATERIAL_VERSION = "1.0.0"
+    val MATERIAL_VERSION = "1.2.1"
     val MOCKITO = "3.3.1"
     val MULTIDEX = "1.0.3"
     val JACOCO = "0.16.0"
