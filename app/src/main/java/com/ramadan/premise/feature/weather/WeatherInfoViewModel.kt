@@ -1,5 +1,6 @@
 package com.ramadan.premise.feature.weather
 
+import androidx.annotation.VisibleForTesting
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -71,5 +72,15 @@ class WeatherInfoViewModel @ViewModelInject constructor(
     override fun onCleared() {
         super.onCleared()
         compositeDisposable.clear()
+    }
+
+    @VisibleForTesting
+    fun changeWeatherDataState(data: WeatherInfo) {
+        _weatherDataState.value = DataState.Success(data)
+    }
+
+    @VisibleForTesting
+    fun changeForecastDataState(data: List<WeatherInfo>) {
+        _weatherForecastDataState.value = DataState.Success(data)
     }
 }
