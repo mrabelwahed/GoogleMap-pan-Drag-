@@ -5,14 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/two_grid_unit"
+    android:id="@+id/weatherMainView"
     tools:context=".feature.weather.WeatherActivity">
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/cityNameInputLayout"
         style="@style/TextInputLayoutStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/goButton"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="@dimen/two_grid_unit"
         android:hint="@string/city_name_hint">
@@ -23,8 +25,80 @@
             android:layout_height="wrap_content"
             android:textColor="@color/primaryColor"
             android:textColorHint="@color/primaryColor"
+            android:maxLines="1"
             />
 
     </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/goButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/go"
+        app:layout_constraintStart_toEndOf="@id/cityNameInputLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/cityNameInputLayout"
+        android:layout_marginLeft="@dimen/one_grid_unit"
+        />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/temperatureTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cityNameInputLayout"
+        tools:text="Temperature :"
+        android:layout_marginTop="@dimen/two_grid_unit"
+        />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/pressureTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/temperatureTextView"
+        tools:text="Pressure :"
+        android:layout_marginTop="@dimen/one_grid_unit"
+        />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/humidityTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/pressureTextView"
+        tools:text="Humidity :"
+        android:layout_marginTop="@dimen/one_grid_unit"
+        />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/weatherStatusTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/humidityTextView"
+        tools:text="WeatherStatus :"
+        android:layout_marginTop="@dimen/one_grid_unit"
+        />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/weatherIcon"
+        android:layout_width="@dimen/twenty_grid_unit"
+        android:layout_height="@dimen/ten_grid_unit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/temperatureTextView"
+        />
+
+    <ProgressBar
+        android:id="@+id/weatherLoader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/accentColor"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

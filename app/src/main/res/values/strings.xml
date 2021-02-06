@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Weather</string>
     <string name="city_name_hint">Enter a city name</string>
+    <string name="go">GO</string>
+    <string name="no_internet_connection">No Internet Connection</string>
 </resources>

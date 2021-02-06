@@ -28,7 +28,11 @@ object Versions {
     val HILT = "2.28-alpha"
     val HILT_VIEWMODEL = "1.0.0-alpha01"
     val FRAGMENT_KTX = "1.2.5"
-    val ROOM = "2.2.5"
+    val RX_RETROFIT_ADAPTER = "2.6.1"
+    val RETROFIT_VERSION = "2.7.1"
+    val OKHTTP_LOGGING_INTERCEPTOR_VERSION = "3.12.1"
+    val GSON_CONVERTER = "2.6.1"
+    val GLIDE_VERSION = "4.11.0"
 }
 
 object BuildPlugins {
@@ -66,9 +70,13 @@ object Libs {
     val hiltLifeCycleViewModel = "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.HILT_VIEWMODEL}"
     val hiltCompiler = "androidx.hilt:hilt-compiler:${Versions.HILT_VIEWMODEL}"
     val fragmentKtx =  "androidx.fragment:fragment-ktx:${Versions.FRAGMENT_KTX}"
-    val room = "androidx.room:room-runtime:${Versions.ROOM}"
-    val roomCompiler = "androidx.room:room-compiler:${Versions.ROOM}"
-    val rxRoom = "androidx.room:room-rxjava2:${Versions.ROOM}"
+    val retrofit = "com.squareup.retrofit2:retrofit:${Versions.RETROFIT_VERSION}"
+    val rxAdapter = "com.squareup.retrofit2:adapter-rxjava2:${Versions.RX_RETROFIT_ADAPTER}"
+    val loggingInterceptor =
+        "com.squareup.okhttp3:logging-interceptor:${Versions.OKHTTP_LOGGING_INTERCEPTOR_VERSION}"
+    val gsonConverter = "com.squareup.retrofit2:converter-gson:${Versions.GSON_CONVERTER}"
+    val glide = "com.github.bumptech.glide:glide:${Versions.GLIDE_VERSION}"
+    val glideCompiler = "com.github.bumptech.glide:compiler:${Versions.GLIDE_VERSION}"
 }
 
 object TestLibs {

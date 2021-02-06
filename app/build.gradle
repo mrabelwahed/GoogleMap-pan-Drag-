@@ -58,16 +58,15 @@ dependencies {
     implementation Libs.multidex
     implementation Libs.fragmentKtx
     implementation Libs.hiltAndroid
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation Libs.retrofit
+    implementation Libs.rxAdapter
+    implementation Libs.loggingInterceptor
+    implementation Libs.gsonConverter
     kapt Libs.hiltAndroidCompiler
     implementation Libs.hiltLifeCycleViewModel
     kapt Libs.hiltCompiler
-    implementation Libs.room
-    kapt Libs.roomCompiler
-    implementation Libs.rxRoom
-
+    implementation Libs.glide
+    kapt Libs.glideCompiler
 
     //Testing Libs
     testImplementation TestLibs.junit
