@@ -16,7 +16,7 @@ import javax.inject.Singleton
 class RepositoryModule {
     @Singleton
     @Provides
-    fun providesRestaurantsRepository(weatherAPI: WeatherAPI): WeatherRepository {
-        return WeatherRepositoryImpl(weatherAPI)
+    fun providesWeatherRepository(@ApplicationContext appContext: Context, weatherAPI: WeatherAPI): WeatherRepository {
+        return WeatherRepositoryImpl(appContext, weatherAPI)
     }
 }

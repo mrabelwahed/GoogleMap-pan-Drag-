@@ -5,6 +5,12 @@ Your task is to build a simple weather app that can take a location input,
  then display some details about the weather. You should write your app with Kotlin or Java,
   use any libraries/frameworks you wish, and any weather API that is available.
 
+## Assumption
+ for Forcast data for next 14 days , I can't found free service to do this.
+ SO I will assume I have 14 days forecast data in json file on the assets and I will
+ work based on this assumption
+
+
 
 ## How to run the project
 

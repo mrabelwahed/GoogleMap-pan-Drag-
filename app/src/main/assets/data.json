@@ -1,0 +1,578 @@
+{
+  "weather": [
+    {
+    "request": {
+      "type": "City",
+      "query": "Cairo, Egypt",
+      "language": "en",
+      "unit": "m"
+    },
+    "location": {
+      "name": "Cairo",
+      "country": "Egypt",
+      "region": "Al Qahirah",
+      "lat": "30.050",
+      "lon": "31.250",
+      "timezone_id": "Africa/Cairo",
+      "localtime": "2021-02-06 05:23",
+      "localtime_epoch": 1612588980,
+      "utc_offset": "2.0"
+    },
+    "current": {
+      "observation_time": "03:23 AM",
+      "temperature": 13,
+      "weather_code": 116,
+      "weather_icons": [
+        "https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0008_clear_sky_night.png"
+      ],
+      "weather_descriptions": [
+        "Partly cloudy"
+      ],
+      "wind_speed": 0,
+      "wind_degree": 0,
+      "wind_dir": "N",
+      "pressure": 1021,
+      "precip": 0,
+      "humidity": 94,
+      "cloudcover": 50,
+      "feelslike": 12,
+      "uv_index": 1,
+      "visibility": 6,
+      "is_day": "no"
+    }
+  },
+    {
+      "request": {
+        "type": "City",
+        "query": "Cairo, Egypt",
+        "language": "en",
+        "unit": "m"
+      },
+      "location": {
+        "name": "Cairo",
+        "country": "Egypt",
+        "region": "Al Qahirah",
+        "lat": "30.050",
+        "lon": "31.250",
+        "timezone_id": "Africa/Cairo",
+        "localtime": "2021-02-06 05:23",
+        "localtime_epoch": 1612588980,
+        "utc_offset": "2.0"
+      },
+      "current": {
+        "observation_time": "03:23 AM",
+        "temperature": 13,
+        "weather_code": 116,
+        "weather_icons": [
+          "https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0004_black_low_cloud.png"
+        ],
+        "weather_descriptions": [
+          "Partly cloudy"
+        ],
+        "wind_speed": 0,
+        "wind_degree": 0,
+        "wind_dir": "N",
+        "pressure": 1021,
+        "precip": 0,
+        "humidity": 94,
+        "cloudcover": 50,
+        "feelslike": 12,
+        "uv_index": 1,
+        "visibility": 6,
+        "is_day": "no"
+      }
+    },
+    {
+      "request": {
+        "type": "City",
+        "query": "Cairo, Egypt",
+        "language": "en",
+        "unit": "m"
+      },
+      "location": {
+        "name": "Cairo",
+        "country": "Egypt",
+        "region": "Al Qahirah",
+        "lat": "30.050",
+        "lon": "31.250",
+        "timezone_id": "Africa/Cairo",
+        "localtime": "2021-02-06 05:23",
+        "localtime_epoch": 1612588980,
+        "utc_offset": "2.0"
+      },
+      "current": {
+        "observation_time": "03:23 AM",
+        "temperature": 13,
+        "weather_code": 116,
+        "weather_icons": [
+          "https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0004_black_low_cloud.png"
+        ],
+        "weather_descriptions": [
+          "Partly cloudy"
+        ],
+        "wind_speed": 0,
+        "wind_degree": 0,
+        "wind_dir": "N",
+        "pressure": 1021,
+        "precip": 0,
+        "humidity": 94,
+        "cloudcover": 50,
+        "feelslike": 12,
+        "uv_index": 1,
+        "visibility": 6,
+        "is_day": "no"
+      }
+    },
+    {
+      "request": {
+        "type": "City",
+        "query": "Cairo, Egypt",
+        "language": "en",
+        "unit": "m"
+      },
+      "location": {
+        "name": "Cairo",
+        "country": "Egypt",
+        "region": "Al Qahirah",
+        "lat": "30.050",
+        "lon": "31.250",
+        "timezone_id": "Africa/Cairo",
+        "localtime": "2021-02-06 05:23",
+        "localtime_epoch": 1612588980,
+        "utc_offset": "2.0"
+      },
+      "current": {
+        "observation_time": "03:23 AM",
+        "temperature": 13,
+        "weather_code": 116,
+        "weather_icons": [
+          "https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0004_black_low_cloud.png"
+        ],
+        "weather_descriptions": [
+          "Partly cloudy"
+        ],
+        "wind_speed": 0,
+        "wind_degree": 0,
+        "wind_dir": "N",
+        "pressure": 1021,
+        "precip": 0,
+        "humidity": 94,
+        "cloudcover": 50,
+        "feelslike": 12,
+        "uv_index": 1,
+        "visibility": 6,
+        "is_day": "no"
+      }
+    },
+    {
+      "request": {
+        "type": "City",
+        "query": "Cairo, Egypt",
+        "language": "en",
+        "unit": "m"
+      },
+      "location": {
+        "name": "Cairo",
+        "country": "Egypt",
+        "region": "Al Qahirah",
+        "lat": "30.050",
+        "lon": "31.250",
+        "timezone_id": "Africa/Cairo",
+        "localtime": "2021-02-06 05:23",
+        "localtime_epoch": 1612588980,
+        "utc_offset": "2.0"
+      },
+      "current": {
+        "observation_time": "03:23 AM",
+        "temperature": 13,
+        "weather_code": 116,
+        "weather_icons": [
+          "https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0004_black_low_cloud.png"
+        ],
+        "weather_descriptions": [
+          "Partly cloudy"
+        ],
+        "wind_speed": 0,
+        "wind_degree": 0,
+        "wind_dir": "N",
+        "pressure": 1021,
+        "precip": 0,
+        "humidity": 94,
+        "cloudcover": 50,
+        "feelslike": 12,
+        "uv_index": 1,
+        "visibility": 6,
+        "is_day": "no"
+      }
+    },
+    {
+      "request": {
+        "type": "City",
+        "query": "Cairo, Egypt",
+        "language": "en",
+        "unit": "m"
+      },
+      "location": {
+        "name": "Cairo",
+        "country": "Egypt",
+        "region": "Al Qahirah",
+        "lat": "30.050",
+        "lon": "31.250",
+        "timezone_id": "Africa/Cairo",
+        "localtime": "2021-02-06 05:23",
+        "localtime_epoch": 1612588980,
+        "utc_offset": "2.0"
+      },
+      "current": {
+        "observation_time": "03:23 AM",
+        "temperature": 13,
+        "weather_code": 116,
+        "weather_icons": [
+          "https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0004_black_low_cloud.png"
+        ],
+        "weather_descriptions": [
+          "Partly cloudy"
+        ],
+        "wind_speed": 0,
+        "wind_degree": 0,
+        "wind_dir": "N",
+        "pressure": 1021,
+        "precip": 0,
+        "humidity": 94,
+        "cloudcover": 50,
+        "feelslike": 12,
+        "uv_index": 1,
+        "visibility": 6,
+        "is_day": "no"
+      }
+    },
+    {
+      "request": {
+        "type": "City",
+        "query": "Cairo, Egypt",
+        "language": "en",
+        "unit": "m"
+      },
+      "location": {
+        "name": "Cairo",
+        "country": "Egypt",
+        "region": "Al Qahirah",
+        "lat": "30.050",
+        "lon": "31.250",
+        "timezone_id": "Africa/Cairo",
+        "localtime": "2021-02-06 05:23",
+        "localtime_epoch": 1612588980,
+        "utc_offset": "2.0"
+      },
+      "current": {
+        "observation_time": "03:23 AM",
+        "temperature": 13,
+        "weather_code": 116,
+        "weather_icons": [
+          "https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0004_black_low_cloud.png"
+        ],
+        "weather_descriptions": [
+          "Partly cloudy"
+        ],
+        "wind_speed": 0,
+        "wind_degree": 0,
+        "wind_dir": "N",
+        "pressure": 1021,
+        "precip": 0,
+        "humidity": 94,
+        "cloudcover": 50,
+        "feelslike": 12,
+        "uv_index": 1,
+        "visibility": 6,
+        "is_day": "no"
+      }
+    },
+    {
+      "request": {
+        "type": "City",
+        "query": "Cairo, Egypt",
+        "language": "en",
+        "unit": "m"
+      },
+      "location": {
+        "name": "Cairo",
+        "country": "Egypt",
+        "region": "Al Qahirah",
+        "lat": "30.050",
+        "lon": "31.250",
+        "timezone_id": "Africa/Cairo",
+        "localtime": "2021-02-06 05:23",
+        "localtime_epoch": 1612588980,
+        "utc_offset": "2.0"
+      },
+      "current": {
+        "observation_time": "03:23 AM",
+        "temperature": 13,
+        "weather_code": 116,
+        "weather_icons": [
+          "https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0004_black_low_cloud.png"
+        ],
+        "weather_descriptions": [
+          "Partly cloudy"
+        ],
+        "wind_speed": 0,
+        "wind_degree": 0,
+        "wind_dir": "N",
+        "pressure": 1021,
+        "precip": 0,
+        "humidity": 94,
+        "cloudcover": 50,
+        "feelslike": 12,
+        "uv_index": 1,
+        "visibility": 6,
+        "is_day": "no"
+      }
+    },
+    {
+      "request": {
+        "type": "City",
+        "query": "Cairo, Egypt",
+        "language": "en",
+        "unit": "m"
+      },
+      "location": {
+        "name": "Cairo",
+        "country": "Egypt",
+        "region": "Al Qahirah",
+        "lat": "30.050",
+        "lon": "31.250",
+        "timezone_id": "Africa/Cairo",
+        "localtime": "2021-02-06 05:23",
+        "localtime_epoch": 1612588980,
+        "utc_offset": "2.0"
+      },
+      "current": {
+        "observation_time": "03:23 AM",
+        "temperature": 13,
+        "weather_code": 116,
+        "weather_icons": [
+          "https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0004_black_low_cloud.png"
+        ],
+        "weather_descriptions": [
+          "Partly cloudy"
+        ],
+        "wind_speed": 0,
+        "wind_degree": 0,
+        "wind_dir": "N",
+        "pressure": 1021,
+        "precip": 0,
+        "humidity": 94,
+        "cloudcover": 50,
+        "feelslike": 12,
+        "uv_index": 1,
+        "visibility": 6,
+        "is_day": "no"
+      }
+    },
+    {
+      "request": {
+        "type": "City",
+        "query": "Cairo, Egypt",
+        "language": "en",
+        "unit": "m"
+      },
+      "location": {
+        "name": "Cairo",
+        "country": "Egypt",
+        "region": "Al Qahirah",
+        "lat": "30.050",
+        "lon": "31.250",
+        "timezone_id": "Africa/Cairo",
+        "localtime": "2021-02-06 05:23",
+        "localtime_epoch": 1612588980,
+        "utc_offset": "2.0"
+      },
+      "current": {
+        "observation_time": "03:23 AM",
+        "temperature": 13,
+        "weather_code": 116,
+        "weather_icons": [
+          "https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0004_black_low_cloud.png"
+        ],
+        "weather_descriptions": [
+          "Partly cloudy"
+        ],
+        "wind_speed": 0,
+        "wind_degree": 0,
+        "wind_dir": "N",
+        "pressure": 1021,
+        "precip": 0,
+        "humidity": 94,
+        "cloudcover": 50,
+        "feelslike": 12,
+        "uv_index": 1,
+        "visibility": 6,
+        "is_day": "no"
+      }
+    },
+    {
+      "request": {
+        "type": "City",
+        "query": "Cairo, Egypt",
+        "language": "en",
+        "unit": "m"
+      },
+      "location": {
+        "name": "Cairo",
+        "country": "Egypt",
+        "region": "Al Qahirah",
+        "lat": "30.050",
+        "lon": "31.250",
+        "timezone_id": "Africa/Cairo",
+        "localtime": "2021-02-06 05:23",
+        "localtime_epoch": 1612588980,
+        "utc_offset": "2.0"
+      },
+      "current": {
+        "observation_time": "03:23 AM",
+        "temperature": 13,
+        "weather_code": 116,
+        "weather_icons": [
+          "https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0004_black_low_cloud.png"
+        ],
+        "weather_descriptions": [
+          "Partly cloudy"
+        ],
+        "wind_speed": 0,
+        "wind_degree": 0,
+        "wind_dir": "N",
+        "pressure": 1021,
+        "precip": 0,
+        "humidity": 94,
+        "cloudcover": 50,
+        "feelslike": 12,
+        "uv_index": 1,
+        "visibility": 6,
+        "is_day": "no"
+      }
+    },
+    {
+      "request": {
+        "type": "City",
+        "query": "Cairo, Egypt",
+        "language": "en",
+        "unit": "m"
+      },
+      "location": {
+        "name": "Cairo",
+        "country": "Egypt",
+        "region": "Al Qahirah",
+        "lat": "30.050",
+        "lon": "31.250",
+        "timezone_id": "Africa/Cairo",
+        "localtime": "2021-02-06 05:23",
+        "localtime_epoch": 1612588980,
+        "utc_offset": "2.0"
+      },
+      "current": {
+        "observation_time": "03:23 AM",
+        "temperature": 13,
+        "weather_code": 116,
+        "weather_icons": [
+          "https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0004_black_low_cloud.png"
+        ],
+        "weather_descriptions": [
+          "Partly cloudy"
+        ],
+        "wind_speed": 0,
+        "wind_degree": 0,
+        "wind_dir": "N",
+        "pressure": 1021,
+        "precip": 0,
+        "humidity": 94,
+        "cloudcover": 50,
+        "feelslike": 12,
+        "uv_index": 1,
+        "visibility": 6,
+        "is_day": "no"
+      }
+    },
+    {
+      "request": {
+        "type": "City",
+        "query": "Cairo, Egypt",
+        "language": "en",
+        "unit": "m"
+      },
+      "location": {
+        "name": "Cairo",
+        "country": "Egypt",
+        "region": "Al Qahirah",
+        "lat": "30.050",
+        "lon": "31.250",
+        "timezone_id": "Africa/Cairo",
+        "localtime": "2021-02-06 05:23",
+        "localtime_epoch": 1612588980,
+        "utc_offset": "2.0"
+      },
+      "current": {
+        "observation_time": "03:23 AM",
+        "temperature": 13,
+        "weather_code": 116,
+        "weather_icons": [
+          "https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0004_black_low_cloud.png"
+        ],
+        "weather_descriptions": [
+          "Partly cloudy"
+        ],
+        "wind_speed": 0,
+        "wind_degree": 0,
+        "wind_dir": "N",
+        "pressure": 1021,
+        "precip": 0,
+        "humidity": 94,
+        "cloudcover": 50,
+        "feelslike": 12,
+        "uv_index": 1,
+        "visibility": 6,
+        "is_day": "no"
+      }
+    },
+    {
+      "request": {
+        "type": "City",
+        "query": "Cairo, Egypt",
+        "language": "en",
+        "unit": "m"
+      },
+      "location": {
+        "name": "Cairo",
+        "country": "Egypt",
+        "region": "Al Qahirah",
+        "lat": "30.050",
+        "lon": "31.250",
+        "timezone_id": "Africa/Cairo",
+        "localtime": "2021-02-06 05:23",
+        "localtime_epoch": 1612588980,
+        "utc_offset": "2.0"
+      },
+      "current": {
+        "observation_time": "03:23 AM",
+        "temperature": 13,
+        "weather_code": 116,
+        "weather_icons": [
+          "https://assets.weatherstack.com/images/wsymbols01_png_64/wsymbol_0004_black_low_cloud.png"
+        ],
+        "weather_descriptions": [
+          "Partly cloudy"
+        ],
+        "wind_speed": 0,
+        "wind_degree": 0,
+        "wind_dir": "N",
+        "pressure": 1021,
+        "precip": 0,
+        "humidity": 94,
+        "cloudcover": 50,
+        "feelslike": 12,
+        "uv_index": 1,
+        "visibility": 6,
+        "is_day": "no"
+      }
+    }
+  ]
+}

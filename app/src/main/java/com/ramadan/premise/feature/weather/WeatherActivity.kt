@@ -7,11 +7,13 @@ import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.ramadan.premise.R
 import com.ramadan.premise.domain.entity.WeatherInfo
 import com.ramadan.premise.error.WeatherError
+import com.ramadan.premise.feature.weather.adapter.ForecastAdapter
 import com.ramadan.premise.util.AppConst.HUMIDITY
 import com.ramadan.premise.util.AppConst.PRESSURE
 import com.ramadan.premise.util.AppConst.TEMPREATURE
@@ -19,26 +21,35 @@ import com.ramadan.premise.util.AppConst.WEATHER_STATUS
 import com.ramadan.premise.util.DataState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_weather.*
-
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class WeatherActivity : AppCompatActivity() {
-    val weatherInfoViewModel: WeatherInfoViewModel by viewModels()
+class WeatherActivity : AppCompatActivity(){
+    @Inject lateinit var forecastAdapter: ForecastAdapter
+
+    private val weatherInfoViewModel: WeatherInfoViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_weather)
         handleGoButtonClick()
+        handleNext14DaysForecast()
         observeCurrentWeatherState()
+        observeForecastWeatherState()
     }
 
+    private fun handleNext14DaysForecast() {
+        next14DaysButton.setOnClickListener {
+            weatherInfoViewModel.getForecastWeatherData()
+        }
+    }
 
     private fun handleGoButtonClick() {
         goButton.setOnClickListener {
             val cityName = cityNameFiled.text.toString()
             if (cityName.isEmpty())
                 displayError(getString(R.string.city_name_hint))
-            else{
-                hideKeyboardFrom(this , it)
+            else {
+                hideKeyboardFrom(this, it)
                 weatherInfoViewModel.resetWeatherState()
                 weatherInfoViewModel.getCurrentWeatherInfo(cityNameFiled.text.toString())
             }
@@ -46,25 +57,57 @@ class WeatherActivity : AppCompatActivity() {
     }
 
     private fun observeCurrentWeatherState() {
-        weatherInfoViewModel.weatherDataState.observe(this, Observer {
-            when (it) {
-                is DataState.Success<WeatherInfo> -> {
-                    handleLoading(false)
-                    setCurrentWeatherInfo(it.data)
-                }
+        weatherInfoViewModel.weatherDataState.observe(
+            this,
+            Observer {
+                when (it) {
+                    is DataState.Success<WeatherInfo> -> {
+                        handleLoading(false)
+                        setCurrentWeatherInfo(it.data)
+                        next14DaysButton.visibility = View.VISIBLE
+                    }
 
-                is DataState.Error -> {
-                    handleLoading(false)
-                    if (it.exception is WeatherError.NoInternetConnectionError)
-                        displayError(getString(R.string.no_internet_connection))
-                    else
-                        displayError(it.exception.message)
-                }
-                is DataState.Loading -> {
-                    handleLoading(true)
+                    is DataState.Error -> {
+                        handleLoading(false)
+                        if (it.exception is WeatherError.NoInternetConnectionError)
+                            displayError(getString(R.string.no_internet_connection))
+                        else
+                            displayError(it.exception.message)
+                    }
+                    is DataState.Loading -> {
+                        handleLoading(true)
+                    }
                 }
             }
-        })
+        )
+    }
+
+    private fun observeForecastWeatherState() {
+        weatherInfoViewModel.weatherForecastDataState.observe(
+            this,
+            Observer {
+                when (it) {
+                    is DataState.Success<List<WeatherInfo>> -> {
+                        handleLoading(false)
+                        forecastRecyclerView.layoutManager = LinearLayoutManager(this)
+                        forecastRecyclerView.adapter = forecastAdapter
+                        forecastAdapter.submitList(it.data)
+                    }
+
+                    is DataState.Error -> {
+                        handleLoading(false)
+                        if (it.exception is WeatherError.NoInternetConnectionError)
+                            displayError(getString(R.string.no_internet_connection))
+                        else
+                            displayError(it.exception.message)
+                    }
+
+                    is DataState.Loading -> {
+                        handleLoading(true)
+                    }
+                }
+            }
+        )
     }
 
     private fun setCurrentWeatherInfo(data: WeatherInfo) {
@@ -75,11 +118,10 @@ class WeatherActivity : AppCompatActivity() {
         data.weatherIcon?.let {
             Glide.with(applicationContext).load(it).into(weatherIcon)
         }
-
     }
 
     private fun handleLoading(isDisplayed: Boolean) {
-        //timeCardPullTpRefresh.isRefreshing = isDisplayed
+        // timeCardPullTpRefresh.isRefreshing = isDisplayed
         weatherLoader.visibility = if (isDisplayed) View.VISIBLE else View.GONE
     }
 
@@ -87,11 +129,9 @@ class WeatherActivity : AppCompatActivity() {
         message?.let { Snackbar.make(weatherMainView, it, Snackbar.LENGTH_SHORT).show() }
     }
 
-    fun hideKeyboardFrom(context: Context, view: View) {
+    private fun hideKeyboardFrom(context: Context, view: View) {
         val imm: InputMethodManager =
             context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
-
-
 }

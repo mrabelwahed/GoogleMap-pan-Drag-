@@ -31,12 +31,12 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideAuthInterceptor(): AuthInterceptor {
-        return  AuthInterceptor()
+        return AuthInterceptor()
     }
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(loggingInterceptor : HttpLoggingInterceptor, authInterceptor: AuthInterceptor): OkHttpClient =
+    fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor, authInterceptor: AuthInterceptor): OkHttpClient =
         OkHttpClient.Builder()
             .addInterceptor(authInterceptor)
             .addInterceptor(loggingInterceptor)
@@ -48,9 +48,9 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit.Builder =
-            Retrofit.Builder().client(okHttpClient)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        Retrofit.Builder().client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
 
     @Singleton
     @Provides
