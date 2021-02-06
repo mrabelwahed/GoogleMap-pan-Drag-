@@ -8,6 +8,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.ramadan.premise.R
@@ -24,13 +25,13 @@ import kotlinx.android.synthetic.main.activity_weather.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class WeatherActivity : AppCompatActivity(){
+class WeatherActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
     @Inject lateinit var forecastAdapter: ForecastAdapter
-
     private val weatherInfoViewModel: WeatherInfoViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_weather)
+        weatherPullTpRefresh.setOnRefreshListener(this)
         handleGoButtonClick()
         handleNext14DaysForecast()
         observeCurrentWeatherState()
@@ -121,7 +122,7 @@ class WeatherActivity : AppCompatActivity(){
     }
 
     private fun handleLoading(isDisplayed: Boolean) {
-        // timeCardPullTpRefresh.isRefreshing = isDisplayed
+        weatherPullTpRefresh.isRefreshing = isDisplayed
         weatherLoader.visibility = if (isDisplayed) View.VISIBLE else View.GONE
     }
 
@@ -133,5 +134,10 @@ class WeatherActivity : AppCompatActivity(){
         val imm: InputMethodManager =
             context.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    override fun onRefresh() {
+        weatherInfoViewModel.resetForecastState()
+        weatherInfoViewModel.getForecastWeatherData()
     }
 }

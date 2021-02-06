@@ -33,6 +33,7 @@ object Versions {
     val OKHTTP_LOGGING_INTERCEPTOR_VERSION = "3.12.1"
     val GSON_CONVERTER = "2.6.1"
     val GLIDE_VERSION = "4.11.0"
+    val SWIPE_REFERESH = "1.0.0"
 }
 
 object BuildPlugins {
@@ -77,6 +78,7 @@ object Libs {
     val gsonConverter = "com.squareup.retrofit2:converter-gson:${Versions.GSON_CONVERTER}"
     val glide = "com.github.bumptech.glide:glide:${Versions.GLIDE_VERSION}"
     val glideCompiler = "com.github.bumptech.glide:compiler:${Versions.GLIDE_VERSION}"
+    val swipeRefresh =  "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.SWIPE_REFERESH}"
 }
 
 object TestLibs {

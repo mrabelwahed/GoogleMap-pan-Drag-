@@ -64,6 +64,10 @@ class WeatherInfoViewModel @ViewModelInject constructor(
         _weatherDataState.value = null
     }
 
+    fun resetForecastState() {
+        _weatherForecastDataState.value = null
+    }
+
     override fun onCleared() {
         super.onCleared()
         compositeDisposable.clear()

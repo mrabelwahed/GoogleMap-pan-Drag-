@@ -67,6 +67,7 @@ dependencies {
     kapt Libs.hiltCompiler
     implementation Libs.glide
     kapt Libs.glideCompiler
+    implementation Libs.swipeRefresh
 
     //Testing Libs
     testImplementation TestLibs.junit

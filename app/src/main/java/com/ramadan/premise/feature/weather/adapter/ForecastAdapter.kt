@@ -15,10 +15,9 @@ import kotlinx.android.synthetic.main.activity_weather.*
 import kotlinx.android.synthetic.main.item_forecast.view.*
 import javax.inject.Inject
 
+class ForecastAdapter @Inject constructor() : ListAdapter<WeatherInfo, ForecastAdapter.WeatherViewHolder>(WeatherDiffCallback()) {
 
-class ForecastAdapter @Inject constructor() : ListAdapter<WeatherInfo, ForecastAdapter.WeatherViewHolder>(WeatherDiffCallback()){
-
-    lateinit var  context : Context
+    lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherViewHolder {
         context = parent.context
@@ -30,13 +29,12 @@ class ForecastAdapter @Inject constructor() : ListAdapter<WeatherInfo, ForecastA
         holder.bindTo(getItem(position))
     }
 
-
-    inner class WeatherViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        fun bindTo(weatherInfo: WeatherInfo){
-           itemView.temperatureTextView.text = AppConst.TEMPREATURE.plus(weatherInfo.temperature.toString())
-           itemView.humidityTextView.text = AppConst.HUMIDITY.plus(weatherInfo.humidity.toString())
-           itemView.pressureTextView.text = AppConst.PRESSURE.plus(weatherInfo.pressure.toString())
-           itemView.weatherStatusTextView.text = AppConst.WEATHER_STATUS.plus(weatherInfo.weatherStatus)
+    inner class WeatherViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun bindTo(weatherInfo: WeatherInfo) {
+            itemView.temperatureTextView.text = AppConst.TEMPREATURE.plus(weatherInfo.temperature.toString())
+            itemView.humidityTextView.text = AppConst.HUMIDITY.plus(weatherInfo.humidity.toString())
+            itemView.pressureTextView.text = AppConst.PRESSURE.plus(weatherInfo.pressure.toString())
+            itemView.weatherStatusTextView.text = AppConst.WEATHER_STATUS.plus(weatherInfo.weatherStatus)
             Glide.with(context).load(weatherInfo.weatherIcon).into(itemView.weatherIcon)
         }
     }
@@ -50,7 +48,4 @@ class WeatherDiffCallback : DiffUtil.ItemCallback<WeatherInfo>() {
     override fun areContentsTheSame(oldItem: WeatherInfo, newItem: WeatherInfo): Boolean {
         return oldItem == newItem
     }
-
-
-
 }
