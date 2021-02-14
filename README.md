@@ -34,6 +34,11 @@ Your task is to build a simple weather app that can take a location input,
  2. to format the code. Run the following command in terminal
     ./gradlew ktlintFormat
 
+ ## Run Lint
+ 1. open terminal and run ./gradlew lint
+ 2. check issues like accessibility and find lint-results file under build/reports
+
+
 ## The App Architecture
 
  1. Clean Architecture based on  the MVVM Architecture pattern with Interactors

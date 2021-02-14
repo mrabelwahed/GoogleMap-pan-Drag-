@@ -6,8 +6,8 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class GetCurrentWeatherInfo @Inject constructor (private val repository: WeatherRepository) : Usecase<String, Single<WeatherInfo>> {
-    override fun execute(cityName: String): Single<WeatherInfo> {
-        return repository.getCurrentWeather(cityName).map {
+    override fun execute(param: String): Single<WeatherInfo> {
+        return repository.getCurrentWeather(param).map {
             WeatherInfo(
                 pressure = it.current.pressure,
                 temperature = it.current.temperature,

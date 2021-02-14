@@ -116,9 +116,7 @@ class WeatherActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListene
         humidityTextView.text = HUMIDITY.plus(data.humidity.toString())
         pressureTextView.text = PRESSURE.plus(data.pressure.toString())
         weatherStatusTextView.text = WEATHER_STATUS.plus(data.weatherStatus)
-        data.weatherIcon?.let {
-            Glide.with(applicationContext).load(it).into(weatherIcon)
-        }
+        Glide.with(applicationContext).load(data.weatherIcon).into(weatherIcon)
     }
 
     private fun handleLoading(isDisplayed: Boolean) {
