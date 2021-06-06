@@ -2,6 +2,7 @@ package com.ramadan.premise.feature.weather
 
 import android.content.Context
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
@@ -33,9 +34,19 @@ class WeatherActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListene
         setContentView(R.layout.activity_weather)
         weatherPullTpRefresh.setOnRefreshListener(this)
         handleGoButtonClick()
+        handleEnterButtonClick()
         handleNext14DaysForecast()
         observeCurrentWeatherState()
         observeForecastWeatherState()
+    }
+
+    private fun handleEnterButtonClick() {
+        cityNameFiled.setOnKeyListener { view, keyCode, event ->
+            if (event?.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
+                view?.let { getWeatherInfo(it) }
+                true
+            } else false
+        }
     }
 
     private fun handleNext14DaysForecast() {
@@ -46,16 +57,21 @@ class WeatherActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListene
 
     private fun handleGoButtonClick() {
         goButton.setOnClickListener {
-            val cityName = cityNameFiled.text.toString()
-            if (cityName.isEmpty())
-                displayError(getString(R.string.city_name_hint))
-            else {
-                hideKeyboardFrom(this, it)
-                weatherInfoViewModel.resetWeatherState()
-                weatherInfoViewModel.getCurrentWeatherInfo(cityNameFiled.text.toString())
-            }
+           getWeatherInfo(it)
         }
     }
+
+    private fun getWeatherInfo(view : View){
+        val cityName = cityNameFiled.text.toString()
+        if (cityName.isEmpty())
+            displayError(getString(R.string.city_name_hint))
+        else {
+            hideKeyboardFrom(this, view)
+            weatherInfoViewModel.resetWeatherState()
+            weatherInfoViewModel.getCurrentWeatherInfo(cityNameFiled.text.toString())
+        }
+    }
+
 
     private fun observeCurrentWeatherState() {
         weatherInfoViewModel.weatherDataState.observe(

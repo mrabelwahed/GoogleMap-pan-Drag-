@@ -8,7 +8,7 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/temperatureTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -18,7 +18,7 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/pressureTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/temperatureTextView"
@@ -28,7 +28,7 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/humidityTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/pressureTextView"
@@ -38,7 +38,7 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/weatherStatusTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/humidityTextView"
@@ -48,9 +48,10 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/weatherIcon"
-        android:layout_width="@dimen/twenty_grid_unit"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/ten_grid_unit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/temperatureTextView"
+        android:src="@drawable/ic_launcher_background"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

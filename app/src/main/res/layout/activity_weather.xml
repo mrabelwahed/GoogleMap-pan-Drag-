@@ -9,8 +9,8 @@
     <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="0dp"
+        android:layout_height="0dp">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,6 +36,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
+                    android:lines="1"
+                    android:inputType="text"
+                    android:imeOptions="actionDone"
                     android:textColor="@color/primaryColor"
                     android:textColorHint="@color/primaryColor" />
 
@@ -44,12 +47,14 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/goButton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_marginLeft="@dimen/one_grid_unit"
                 android:text="@string/go"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/cityNameInputLayout"
-                app:layout_constraintTop_toTopOf="@id/cityNameInputLayout" />
+                app:layout_constraintTop_toTopOf="@id/cityNameInputLayout"
+                app:layout_constraintBottom_toBottomOf="@id/cityNameInputLayout"
+                />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/temperatureTextView"
@@ -89,7 +94,7 @@
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/weatherIcon"
-                android:layout_width="@dimen/twenty_grid_unit"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/ten_grid_unit"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/temperatureTextView" />
