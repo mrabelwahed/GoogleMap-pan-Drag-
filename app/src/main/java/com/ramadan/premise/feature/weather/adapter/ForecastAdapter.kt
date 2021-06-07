@@ -10,8 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ramadan.premise.R
 import com.ramadan.premise.domain.entity.WeatherInfo
-import com.ramadan.premise.util.AppConst
-import kotlinx.android.synthetic.main.activity_weather.*
+import com.ramadan.premise.core.common.AppConst
 import kotlinx.android.synthetic.main.item_forecast.view.*
 import javax.inject.Inject
 

@@ -1,6 +1,6 @@
 package com.ramadan.premise.data.network.interceptor
 
-import com.ramadan.premise.util.AppConst
+import com.ramadan.premise.core.common.AppConst
 import okhttp3.HttpUrl
 import okhttp3.Interceptor
 import okhttp3.Request

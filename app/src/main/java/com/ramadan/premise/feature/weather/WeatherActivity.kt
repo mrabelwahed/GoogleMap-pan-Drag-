@@ -14,13 +14,12 @@ import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.ramadan.premise.R
 import com.ramadan.premise.domain.entity.WeatherInfo
-import com.ramadan.premise.error.WeatherError
 import com.ramadan.premise.feature.weather.adapter.ForecastAdapter
-import com.ramadan.premise.util.AppConst.HUMIDITY
-import com.ramadan.premise.util.AppConst.PRESSURE
-import com.ramadan.premise.util.AppConst.TEMPREATURE
-import com.ramadan.premise.util.AppConst.WEATHER_STATUS
-import com.ramadan.premise.util.DataState
+import com.ramadan.premise.core.common.AppConst.HUMIDITY
+import com.ramadan.premise.core.common.AppConst.PRESSURE
+import com.ramadan.premise.core.common.AppConst.TEMPREATURE
+import com.ramadan.premise.core.common.AppConst.WEATHER_STATUS
+import com.ramadan.premise.core.error.Failure
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_weather.*
 import javax.inject.Inject
@@ -38,6 +37,18 @@ class WeatherActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListene
         handleNext14DaysForecast()
         observeCurrentWeatherState()
         observeForecastWeatherState()
+        observeFailureState()
+    }
+
+    private fun observeFailureState() {
+        weatherInfoViewModel.failure.observe(this, Observer {
+            when(it){
+                is Failure.NetworkConnection ->
+                    displayError(getString(R.string.no_internet_connection))
+                else ->
+                    displayError("something went wrong")
+            }
+        })
     }
 
     private fun handleEnterButtonClick() {
@@ -51,6 +62,7 @@ class WeatherActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListene
 
     private fun handleNext14DaysForecast() {
         next14DaysButton.setOnClickListener {
+            handleLoading(true)
             weatherInfoViewModel.getForecastWeatherData()
         }
     }
@@ -68,6 +80,7 @@ class WeatherActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListene
         else {
             hideKeyboardFrom(this, view)
             weatherInfoViewModel.resetWeatherState()
+            handleLoading(true)
             weatherInfoViewModel.getCurrentWeatherInfo(cityNameFiled.text.toString())
         }
     }
@@ -78,21 +91,10 @@ class WeatherActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListene
             this,
             Observer {
                 when (it) {
-                    is DataState.Success<WeatherInfo> -> {
+                    is WeatherInfo -> {
                         handleLoading(false)
-                        setCurrentWeatherInfo(it.data)
+                        setCurrentWeatherInfo(it)
                         next14DaysButton.visibility = View.VISIBLE
-                    }
-
-                    is DataState.Error -> {
-                        handleLoading(false)
-                        if (it.exception is WeatherError.NoInternetConnectionError)
-                            displayError(getString(R.string.no_internet_connection))
-                        else
-                            displayError(it.exception.message)
-                    }
-                    is DataState.Loading -> {
-                        handleLoading(true)
                     }
                 }
             }
@@ -104,23 +106,12 @@ class WeatherActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListene
             this,
             Observer {
                 when (it) {
-                    is DataState.Success<List<WeatherInfo>> -> {
+                    is List<WeatherInfo> -> {
                         handleLoading(false)
+                        handlePullToRefresh(false)
                         forecastRecyclerView.layoutManager = LinearLayoutManager(this)
                         forecastRecyclerView.adapter = forecastAdapter
-                        forecastAdapter.submitList(it.data)
-                    }
-
-                    is DataState.Error -> {
-                        handleLoading(false)
-                        if (it.exception is WeatherError.NoInternetConnectionError)
-                            displayError(getString(R.string.no_internet_connection))
-                        else
-                            displayError(it.exception.message)
-                    }
-
-                    is DataState.Loading -> {
-                        handleLoading(true)
+                        forecastAdapter.submitList(it)
                     }
                 }
             }
@@ -136,8 +127,11 @@ class WeatherActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListene
     }
 
     private fun handleLoading(isDisplayed: Boolean) {
-        weatherPullTpRefresh.isRefreshing = isDisplayed
         weatherLoader.visibility = if (isDisplayed) View.VISIBLE else View.GONE
+    }
+
+    private fun handlePullToRefresh(isDisplayed: Boolean) {
+        weatherPullTpRefresh.isRefreshing = isDisplayed
     }
 
     private fun displayError(message: String?) {

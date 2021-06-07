@@ -1,4 +1,4 @@
-package com.ramadan.premise.util
+package com.ramadan.premise.core.common
 
 object AppConst {
     // TODO : API KEY should be in native module for security as a best practice

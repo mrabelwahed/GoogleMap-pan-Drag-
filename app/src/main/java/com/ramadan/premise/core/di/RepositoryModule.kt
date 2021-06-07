@@ -1,4 +1,4 @@
-package com.ramadan.premise.di
+package com.ramadan.premise.core.di
 
 import android.content.Context
 import com.ramadan.premise.data.network.api.WeatherAPI
