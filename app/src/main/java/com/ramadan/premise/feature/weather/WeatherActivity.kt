@@ -42,6 +42,8 @@ class WeatherActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListene
 
     private fun observeFailureState() {
         weatherInfoViewModel.failure.observe(this, Observer {
+            handleLoading(false)
+            hidePullToRefresh()
             when(it){
                 is Failure.NetworkConnection ->
                     displayError(getString(R.string.no_internet_connection))
@@ -85,7 +87,6 @@ class WeatherActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListene
         }
     }
 
-
     private fun observeCurrentWeatherState() {
         weatherInfoViewModel.weatherDataState.observe(
             this,
@@ -108,7 +109,7 @@ class WeatherActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListene
                 when (it) {
                     is List<WeatherInfo> -> {
                         handleLoading(false)
-                        handlePullToRefresh(false)
+                        hidePullToRefresh()
                         forecastRecyclerView.layoutManager = LinearLayoutManager(this)
                         forecastRecyclerView.adapter = forecastAdapter
                         forecastAdapter.submitList(it)
@@ -130,8 +131,8 @@ class WeatherActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListene
         weatherLoader.visibility = if (isDisplayed) View.VISIBLE else View.GONE
     }
 
-    private fun handlePullToRefresh(isDisplayed: Boolean) {
-        weatherPullTpRefresh.isRefreshing = isDisplayed
+    private fun hidePullToRefresh() {
+        weatherPullTpRefresh.isRefreshing = false
     }
 
     private fun displayError(message: String?) {
