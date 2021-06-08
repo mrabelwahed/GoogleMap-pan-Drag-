@@ -20,18 +20,21 @@ import com.ramadan.premise.core.common.AppConst.PRESSURE
 import com.ramadan.premise.core.common.AppConst.TEMPREATURE
 import com.ramadan.premise.core.common.AppConst.WEATHER_STATUS
 import com.ramadan.premise.core.error.Failure
+import com.ramadan.premise.databinding.ActivityWeatherBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_weather.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class WeatherActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
     @Inject lateinit var forecastAdapter: ForecastAdapter
+    private lateinit var binding: ActivityWeatherBinding
     private val weatherInfoViewModel: WeatherInfoViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_weather)
-        weatherPullTpRefresh.setOnRefreshListener(this)
+       binding =  ActivityWeatherBinding.inflate(layoutInflater)
+
+        setContentView(binding.root)
+        binding.weatherPullTpRefresh.setOnRefreshListener(this)
         handleGoButtonClick()
         handleEnterButtonClick()
         handleNext14DaysForecast()
@@ -54,7 +57,7 @@ class WeatherActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListene
     }
 
     private fun handleEnterButtonClick() {
-        cityNameFiled.setOnKeyListener { view, keyCode, event ->
+        binding.cityNameFiled.setOnKeyListener { view, keyCode, event ->
             if (event?.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
                 view?.let { getWeatherInfo(it) }
                 true
@@ -63,27 +66,27 @@ class WeatherActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListene
     }
 
     private fun handleNext14DaysForecast() {
-        next14DaysButton.setOnClickListener {
+        binding.next14DaysButton.setOnClickListener {
             handleLoading(true)
             weatherInfoViewModel.getForecastWeatherData()
         }
     }
 
     private fun handleGoButtonClick() {
-        goButton.setOnClickListener {
+        binding.goButton.setOnClickListener {
            getWeatherInfo(it)
         }
     }
 
     private fun getWeatherInfo(view : View){
-        val cityName = cityNameFiled.text.toString()
+        val cityName =  binding.cityNameFiled.text.toString()
         if (cityName.isEmpty())
             displayError(getString(R.string.city_name_hint))
         else {
             hideKeyboardFrom(this, view)
             weatherInfoViewModel.resetWeatherState()
             handleLoading(true)
-            weatherInfoViewModel.getCurrentWeatherInfo(cityNameFiled.text.toString())
+            weatherInfoViewModel.getCurrentWeatherInfo( binding.cityNameFiled.text.toString())
         }
     }
 
@@ -95,7 +98,7 @@ class WeatherActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListene
                     is WeatherInfo -> {
                         handleLoading(false)
                         setCurrentWeatherInfo(it)
-                        next14DaysButton.visibility = View.VISIBLE
+                        binding.next14DaysButton.visibility = View.VISIBLE
                     }
                 }
             }
@@ -110,8 +113,8 @@ class WeatherActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListene
                     is List<WeatherInfo> -> {
                         handleLoading(false)
                         hidePullToRefresh()
-                        forecastRecyclerView.layoutManager = LinearLayoutManager(this)
-                        forecastRecyclerView.adapter = forecastAdapter
+                        binding.forecastRecyclerView.layoutManager = LinearLayoutManager(this)
+                        binding.forecastRecyclerView.adapter = forecastAdapter
                         forecastAdapter.submitList(it)
                     }
                 }
@@ -120,23 +123,23 @@ class WeatherActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListene
     }
 
     private fun setCurrentWeatherInfo(data: WeatherInfo) {
-        temperatureTextView.text = TEMPREATURE.plus(data.temperature.toString())
-        humidityTextView.text = HUMIDITY.plus(data.humidity.toString())
-        pressureTextView.text = PRESSURE.plus(data.pressure.toString())
-        weatherStatusTextView.text = WEATHER_STATUS.plus(data.weatherStatus)
-        Glide.with(applicationContext).load(data.weatherIcon).into(weatherIcon)
+        binding.temperatureTextView.text = TEMPREATURE.plus(data.temperature.toString())
+        binding.humidityTextView.text = HUMIDITY.plus(data.humidity.toString())
+        binding. pressureTextView.text = PRESSURE.plus(data.pressure.toString())
+        binding.weatherStatusTextView.text = WEATHER_STATUS.plus(data.weatherStatus)
+        Glide.with(applicationContext).load(data.weatherIcon).into(binding.weatherIcon)
     }
 
     private fun handleLoading(isDisplayed: Boolean) {
-        weatherLoader.visibility = if (isDisplayed) View.VISIBLE else View.GONE
+        binding.weatherLoader.visibility = if (isDisplayed) View.VISIBLE else View.GONE
     }
 
     private fun hidePullToRefresh() {
-        weatherPullTpRefresh.isRefreshing = false
+        binding.weatherPullTpRefresh.isRefreshing = false
     }
 
     private fun displayError(message: String?) {
-        message?.let { Snackbar.make(weatherMainView, it, Snackbar.LENGTH_SHORT).show() }
+        message?.let { Snackbar.make( binding.weatherMainView, it, Snackbar.LENGTH_SHORT).show() }
     }
 
     private fun hideKeyboardFrom(context: Context, view: View) {
