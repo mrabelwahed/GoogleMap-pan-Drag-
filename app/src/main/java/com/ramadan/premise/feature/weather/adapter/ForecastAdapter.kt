@@ -7,9 +7,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.ramadan.premise.domain.entity.WeatherInfo
 import com.ramadan.premise.core.common.AppConst
 import com.ramadan.premise.databinding.ItemForecastBinding
+import com.ramadan.premise.domain.entity.WeatherInfo
 import javax.inject.Inject
 
 class ForecastAdapter @Inject constructor() : ListAdapter<WeatherInfo, ForecastAdapter.WeatherViewHolder>(WeatherDiffCallback()) {
@@ -18,7 +18,7 @@ class ForecastAdapter @Inject constructor() : ListAdapter<WeatherInfo, ForecastA
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WeatherViewHolder {
         context = parent.context
-        val binding = ItemForecastBinding.inflate(LayoutInflater.from(context),parent,false)
+        val binding = ItemForecastBinding.inflate(LayoutInflater.from(context), parent, false)
         return WeatherViewHolder(binding)
     }
 

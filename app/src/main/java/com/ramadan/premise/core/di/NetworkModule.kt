@@ -1,9 +1,9 @@
 package com.ramadan.premise.core.di
 
-import com.ramadan.premise.data.network.api.WeatherAPI
-import com.ramadan.premise.data.network.interceptor.AuthInterceptor
 import com.ramadan.premise.core.common.AppConst.BASE_URL
 import com.ramadan.premise.core.common.AppConst.TIMEOUT_REQUEST
+import com.ramadan.premise.data.network.api.WeatherAPI
+import com.ramadan.premise.data.network.interceptor.AuthInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

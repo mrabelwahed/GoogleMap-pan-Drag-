@@ -13,14 +13,15 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.ramadan.premise.R
-import com.ramadan.premise.domain.entity.WeatherInfo
-import com.ramadan.premise.feature.weather.adapter.ForecastAdapter
 import com.ramadan.premise.core.common.AppConst.HUMIDITY
 import com.ramadan.premise.core.common.AppConst.PRESSURE
 import com.ramadan.premise.core.common.AppConst.TEMPREATURE
 import com.ramadan.premise.core.common.AppConst.WEATHER_STATUS
+import com.ramadan.premise.core.common.DataState
 import com.ramadan.premise.core.error.Failure
 import com.ramadan.premise.databinding.ActivityWeatherBinding
+import com.ramadan.premise.domain.entity.WeatherInfo
+import com.ramadan.premise.feature.weather.adapter.ForecastAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -31,7 +32,7 @@ class WeatherActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListene
     private val weatherInfoViewModel: WeatherInfoViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-       binding =  ActivityWeatherBinding.inflate(layoutInflater)
+        binding = ActivityWeatherBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
         binding.weatherPullTpRefresh.setOnRefreshListener(this)
@@ -40,21 +41,8 @@ class WeatherActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListene
         handleNext14DaysForecast()
         observeCurrentWeatherState()
         observeForecastWeatherState()
-        observeFailureState()
     }
 
-    private fun observeFailureState() {
-        weatherInfoViewModel.failure.observe(this, Observer {
-            handleLoading(false)
-            hidePullToRefresh()
-            when(it){
-                is Failure.NetworkConnection ->
-                    displayError(getString(R.string.no_internet_connection))
-                else ->
-                    displayError("something went wrong")
-            }
-        })
-    }
 
     private fun handleEnterButtonClick() {
         binding.cityNameFiled.setOnKeyListener { view, keyCode, event ->
@@ -74,19 +62,19 @@ class WeatherActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListene
 
     private fun handleGoButtonClick() {
         binding.goButton.setOnClickListener {
-           getWeatherInfo(it)
+            getWeatherInfo(it)
         }
     }
 
-    private fun getWeatherInfo(view : View){
-        val cityName =  binding.cityNameFiled.text.toString()
+    private fun getWeatherInfo(view: View) {
+        val cityName = binding.cityNameFiled.text.toString()
         if (cityName.isEmpty())
             displayError(getString(R.string.city_name_hint))
         else {
             hideKeyboardFrom(this, view)
             weatherInfoViewModel.resetWeatherState()
             handleLoading(true)
-            weatherInfoViewModel.getCurrentWeatherInfo( binding.cityNameFiled.text.toString())
+            weatherInfoViewModel.getCurrentWeatherInfo(binding.cityNameFiled.text.toString())
         }
     }
 
@@ -95,10 +83,16 @@ class WeatherActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListene
             this,
             Observer {
                 when (it) {
-                    is WeatherInfo -> {
+                    is DataState.Success -> {
                         handleLoading(false)
-                        setCurrentWeatherInfo(it)
+                        setCurrentWeatherInfo(it.data)
                         binding.next14DaysButton.visibility = View.VISIBLE
+                    }
+                    is DataState.Error ->{
+                        if(it.exception is Failure.NetworkConnection)
+                         displayError(getString(R.string.no_internet_connection))
+                        else
+                          displayError("something went wrong")
                     }
                 }
             }
@@ -110,12 +104,19 @@ class WeatherActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListene
             this,
             Observer {
                 when (it) {
-                    is List<WeatherInfo> -> {
+                    is DataState.Success -> {
                         handleLoading(false)
                         hidePullToRefresh()
                         binding.forecastRecyclerView.layoutManager = LinearLayoutManager(this)
                         binding.forecastRecyclerView.adapter = forecastAdapter
-                        forecastAdapter.submitList(it)
+                        forecastAdapter.submitList(it.data)
+                    }
+
+                    is DataState.Error ->{
+                        if(it.exception is Failure.NetworkConnection)
+                            displayError(getString(R.string.no_internet_connection))
+                        else
+                            displayError("something went wrong")
                     }
                 }
             }
@@ -125,7 +126,7 @@ class WeatherActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListene
     private fun setCurrentWeatherInfo(data: WeatherInfo) {
         binding.temperatureTextView.text = TEMPREATURE.plus(data.temperature.toString())
         binding.humidityTextView.text = HUMIDITY.plus(data.humidity.toString())
-        binding. pressureTextView.text = PRESSURE.plus(data.pressure.toString())
+        binding.pressureTextView.text = PRESSURE.plus(data.pressure.toString())
         binding.weatherStatusTextView.text = WEATHER_STATUS.plus(data.weatherStatus)
         Glide.with(applicationContext).load(data.weatherIcon).into(binding.weatherIcon)
     }
@@ -139,7 +140,7 @@ class WeatherActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListene
     }
 
     private fun displayError(message: String?) {
-        message?.let { Snackbar.make( binding.weatherMainView, it, Snackbar.LENGTH_SHORT).show() }
+        message?.let { Snackbar.make(binding.weatherMainView, it, Snackbar.LENGTH_SHORT).show() }
     }
 
     private fun hideKeyboardFrom(context: Context, view: View) {

@@ -5,6 +5,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ramadan.premise.core.common.BaseViewModel
+import com.ramadan.premise.core.common.DataState
 import com.ramadan.premise.domain.entity.WeatherInfo
 import com.ramadan.premise.domain.inteactor.GetCurrentWeatherInfo
 import com.ramadan.premise.domain.inteactor.GetForecastData
@@ -16,38 +17,39 @@ class WeatherInfoViewModel @ViewModelInject constructor(
     private val getCurrentWeatherInfo: GetCurrentWeatherInfo,
     private val getForecastData: GetForecastData
 ) : BaseViewModel() {
-    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
-    private val _weatherDataState: MutableLiveData<WeatherInfo> = MutableLiveData()
-    val weatherDataState: LiveData<WeatherInfo>
+    private val _weatherDataState: MutableLiveData<DataState<WeatherInfo>> = MutableLiveData()
+    val weatherDataState: LiveData<DataState<WeatherInfo>>
         get() = _weatherDataState
 
-    private val _weatherForecastDataState: MutableLiveData<List<WeatherInfo>> = MutableLiveData()
-    val weatherForecastDataState: LiveData<List<WeatherInfo>>
+    private val _weatherForecastDataState: MutableLiveData<DataState<List<WeatherInfo>>> = MutableLiveData()
+    val weatherForecastDataState: LiveData<DataState<List<WeatherInfo>>>
         get() = _weatherForecastDataState
 
     fun getCurrentWeatherInfo(cityName: String) {
         if (_weatherDataState.value != null) return
 
-        val currentWeatherDisposable = getCurrentWeatherInfo.execute(cityName)
+        getCurrentWeatherInfo.execute(cityName)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { res -> _weatherDataState.value = res },
-                { error -> handleFailure(getError(error)) }
+                { res -> _weatherDataState.value = DataState.Success(res) },
+                { error -> _weatherDataState.value = DataState.Error(getError(error)) }
             )
-        compositeDisposable.add(currentWeatherDisposable)
+            .also { compositeDisposable.add(it) }
+
     }
 
     fun getForecastWeatherData() {
         if (_weatherForecastDataState.value != null) return
-        val weatherForecastDataDisposable = getForecastData.execute(Unit)
+       getForecastData.execute(Unit)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { res -> _weatherForecastDataState.value = res },
-                { error -> handleFailure(getError(error)) }
+                { res -> _weatherForecastDataState.value = DataState.Success(res) },
+                { error -> _weatherForecastDataState.value  = DataState.Error(getError(error)) }
             )
-        compositeDisposable.add(weatherForecastDataDisposable)
+           .also { compositeDisposable.add(it)}
+
     }
 
     fun resetWeatherState() {
@@ -58,18 +60,15 @@ class WeatherInfoViewModel @ViewModelInject constructor(
         _weatherForecastDataState.value = null
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        compositeDisposable.clear()
-    }
+
 
     @VisibleForTesting
     fun changeWeatherDataState(data: WeatherInfo) {
-        _weatherDataState.value = data
+        _weatherDataState.value = DataState.Success(data)
     }
 
     @VisibleForTesting
     fun changeForecastDataState(data: List<WeatherInfo>) {
-        _weatherForecastDataState.value = data
+        _weatherForecastDataState.value = DataState.Success(data)
     }
 }
