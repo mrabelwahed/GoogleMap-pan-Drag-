@@ -8,10 +8,8 @@ object Versions {
     val VERSION_NAME = "1.0"
     val RXJAVA_VERSION = "2.2.13"
     val RX_ANDROID = "2.1.1"
-    val GSON_VERSION = "2.8.5"
+    val GSON_VERSION = "2.8.7"
     val LIFE_CYCLE_VERSION = "2.2.0"
-    val CARD_VIEW_VERSION = "1.0.0"
-    val RECYCLERVIEW_VERSION = "1.1.0"
     val CONSTRAINT_LAYOUT = "1.1.3"
     val ANDROID_GRADLE_VERSION = "4.0.1"
     val APP_COMPAT_VERSION = "1.1.0"
@@ -32,8 +30,7 @@ object Versions {
     val RETROFIT_VERSION = "2.7.1"
     val OKHTTP_LOGGING_INTERCEPTOR_VERSION = "3.12.1"
     val GSON_CONVERTER = "2.6.1"
-    val GLIDE_VERSION = "4.11.0"
-    val SWIPE_REFERESH = "1.0.0"
+    val COUNTRY_CODE_PICKER="2.4.7"
 }
 
 object BuildPlugins {
@@ -58,8 +55,6 @@ object Libs {
     val rxAndroid = "io.reactivex.rxjava2:rxandroid:${Versions.RX_ANDROID}"
     val material = "com.google.android.material:material:${Versions.MATERIAL_VERSION}"
     val gson = "com.google.code.gson:gson:${Versions.GSON_VERSION}"
-    val recyclerview = "androidx.recyclerview:recyclerview:${Versions.RECYCLERVIEW_VERSION}"
-    val cardview = "androidx.cardview:cardview:${Versions.CARD_VIEW_VERSION}"
     val constraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.CONSTRAINT_LAYOUT}"
     val liveData = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.LIFE_CYCLE_VERSION}"
     val viewModel = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.LIFE_CYCLE_VERSION}"
@@ -76,9 +71,7 @@ object Libs {
     val loggingInterceptor =
         "com.squareup.okhttp3:logging-interceptor:${Versions.OKHTTP_LOGGING_INTERCEPTOR_VERSION}"
     val gsonConverter = "com.squareup.retrofit2:converter-gson:${Versions.GSON_CONVERTER}"
-    val glide = "com.github.bumptech.glide:glide:${Versions.GLIDE_VERSION}"
-    val glideCompiler = "com.github.bumptech.glide:compiler:${Versions.GLIDE_VERSION}"
-    val swipeRefresh =  "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.SWIPE_REFERESH}"
+    val countryCodePiker =  "com.hbb20:ccp:${Versions.COUNTRY_CODE_PICKER}"
 }
 
 object TestLibs {

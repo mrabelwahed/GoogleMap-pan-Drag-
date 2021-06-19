@@ -51,8 +51,6 @@ dependencies {
     implementation Libs.appCompat
     implementation Libs.coreExt
     implementation Libs.material
-    implementation Libs.recyclerview
-    implementation Libs.cardview
     implementation Libs.constraintLayout
     implementation Libs.rxVersion
     implementation Libs.rxAndroid
@@ -69,9 +67,7 @@ dependencies {
     kapt Libs.hiltAndroidCompiler
     implementation Libs.hiltLifeCycleViewModel
     kapt Libs.hiltCompiler
-    implementation Libs.glide
-    kapt Libs.glideCompiler
-    implementation Libs.swipeRefresh
+    implementation Libs.countryCodePiker
 
     //Testing Libs
     testImplementation TestLibs.junit
