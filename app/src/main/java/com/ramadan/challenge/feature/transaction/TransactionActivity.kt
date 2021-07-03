@@ -17,7 +17,7 @@ import com.ramadan.challenge.core.common.AppConst.NIGERIA
 import com.ramadan.challenge.core.common.AppConst.TANZANIA
 import com.ramadan.challenge.core.common.AppConst.UGANDA
 import com.ramadan.challenge.core.common.DataState
-import com.ramadan.challenge.core.error.Failure
+import com.ramadan.challenge.domain.error.Failure
 import com.ramadan.challenge.databinding.ActivityTransactionBinding
 import com.ramadan.challenge.domain.entity.Rates
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,8 +27,6 @@ import dagger.hilt.android.AndroidEntryPoint
 class TransactionActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTransactionBinding
     private val transactionViewModel: TransactionViewModel by viewModels()
-    private var rates: Rates? = null
-    private var selectedCountryNameCode: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +52,7 @@ class TransactionActivity : AppCompatActivity() {
                     lastName,
                     phoneNumber,
                     amountBinary,
-                    selectedCountryNameCode
+                    transactionViewModel.selectedCountryNameCode
                 )
             ) {
                 MaterialAlertDialogBuilder(this)
@@ -89,12 +87,12 @@ class TransactionActivity : AppCompatActivity() {
 
     private fun handleCountryCodePicker() {
         binding.ccpLoadFullNumber.setOnCountryChangeListener {
-            selectedCountryNameCode = binding.ccpLoadFullNumber.selectedCountryNameCode
-            when (selectedCountryNameCode) {
-                COUNTRY_KENYA_CODE -> binding.exchangeRateTV.text = getString(R.string.exchange_rate_info).plus(rates?.kES)
-                COUNTRY_TANZANIA_CODE -> binding.exchangeRateTV.text = getString(R.string.exchange_rate_info).plus(rates?.tZS)
-                COUNTRY_NIGERIA_CODE -> binding.exchangeRateTV.text = getString(R.string.exchange_rate_info).plus(rates?.nGN)
-                COUNTRY_UGANDA_CODE -> binding.exchangeRateTV.text = getString(R.string.exchange_rate_info).plus(rates?.uGX)
+            transactionViewModel.selectedCountryNameCode = binding.ccpLoadFullNumber.selectedCountryNameCode
+            when (transactionViewModel.selectedCountryNameCode) {
+                COUNTRY_KENYA_CODE -> binding.exchangeRateTV.text = getString(R.string.exchange_rate_info).plus(transactionViewModel.rates?.kES)
+                COUNTRY_TANZANIA_CODE -> binding.exchangeRateTV.text = getString(R.string.exchange_rate_info).plus(transactionViewModel.rates?.tZS)
+                COUNTRY_NIGERIA_CODE -> binding.exchangeRateTV.text = getString(R.string.exchange_rate_info).plus(transactionViewModel.rates?.nGN)
+                COUNTRY_UGANDA_CODE -> binding.exchangeRateTV.text = getString(R.string.exchange_rate_info).plus(transactionViewModel.rates?.uGX)
             }
             calcRecipientMoney()
         }
@@ -128,7 +126,8 @@ class TransactionActivity : AppCompatActivity() {
                         setRatesData(it.data)
                     }
                     is DataState.Error -> {
-                        if (it.exception is Failure.NetworkConnection)
+                        handleLoading(false)
+                        if (it.error is Failure.NetworkConnection)
                             displayError(getString(R.string.no_internet_connection))
                         else
                             displayError(getString(R.string.general_error))
@@ -139,7 +138,7 @@ class TransactionActivity : AppCompatActivity() {
     }
 
     private fun setRatesData(data: Rates) {
-        this.rates = data
+        transactionViewModel.rates = data
     }
 
     private fun handleLoading(isDisplayed: Boolean) {
@@ -153,20 +152,20 @@ class TransactionActivity : AppCompatActivity() {
     private fun calcRecipientMoney() {
         val binaryString = binding.amountNameFiled.text.toString()
         val decimal = transactionViewModel.convertBinaryToDecimal(binaryString)
-        selectedCountryNameCode?.let {
-            when (selectedCountryNameCode) {
+        transactionViewModel.selectedCountryNameCode?.let {
+            when (transactionViewModel.selectedCountryNameCode) {
                 COUNTRY_KENYA_CODE -> {
-                    binding.recipientAmountValueTV.text = transactionViewModel.calcReceivingMoneyBinary(rates?.kES, decimal).plus(KENYA)
+                    binding.recipientAmountValueTV.text = transactionViewModel.calcReceivingMoneyBinary(transactionViewModel.rates?.kES, decimal).plus(KENYA)
                 }
                 COUNTRY_TANZANIA_CODE -> {
-                    binding.recipientAmountValueTV.text = transactionViewModel.calcReceivingMoneyBinary(rates?.tZS, decimal).plus(TANZANIA)
+                    binding.recipientAmountValueTV.text = transactionViewModel.calcReceivingMoneyBinary(transactionViewModel.rates?.tZS, decimal).plus(TANZANIA)
                 }
                 COUNTRY_NIGERIA_CODE -> {
-                    binding.recipientAmountValueTV.text = transactionViewModel.calcReceivingMoneyBinary(rates?.nGN, decimal).plus(NIGERIA)
+                    binding.recipientAmountValueTV.text = transactionViewModel.calcReceivingMoneyBinary(transactionViewModel.rates?.nGN, decimal).plus(NIGERIA)
                 }
                 COUNTRY_UGANDA_CODE -> {
                     binding.recipientAmountValueTV.text =
-                        transactionViewModel.calcReceivingMoneyBinary(rates?.uGX, decimal).plus(UGANDA)
+                        transactionViewModel.calcReceivingMoneyBinary(transactionViewModel.rates?.uGX, decimal).plus(UGANDA)
                 }
                 else -> return
             }

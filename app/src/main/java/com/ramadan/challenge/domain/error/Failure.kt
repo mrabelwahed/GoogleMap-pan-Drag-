@@ -1,4 +1,4 @@
-package com.ramadan.challenge.core.error
+package com.ramadan.challenge.domain.error
 
 sealed class Failure {
     object NetworkConnection : Failure()

@@ -22,16 +22,16 @@ class TransactionViewModel @ViewModelInject constructor(
     val ratesDataState: LiveData<DataState<Rates>>
         get() = _ratesDataState
 
+     var rates: Rates? = null
+     var selectedCountryNameCode: String? = null
+
     fun getCurrentRates() {
         if (_ratesDataState.value != null) return
 
         getExchangeRates.execute()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                { res -> _ratesDataState.value = DataState.Success(res) },
-                { error -> _ratesDataState.value = DataState.Error(getError(error)) }
-            )
+            .subscribe { res -> _ratesDataState.value = res }
             .also { compositeDisposable.add(it) }
     }
 

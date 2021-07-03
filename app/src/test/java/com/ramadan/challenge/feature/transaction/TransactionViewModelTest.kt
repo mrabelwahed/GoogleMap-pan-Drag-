@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.ramadan.challenge.core.common.AppConst
 import com.ramadan.challenge.core.common.DataState
-import com.ramadan.challenge.core.error.Failure
+import com.ramadan.challenge.domain.error.Failure
 import com.ramadan.challenge.domain.entity.Rates
 import com.ramadan.challenge.domain.inteactor.GetExchangeRates
 import com.ramadan.challenge.fake.FakeData
@@ -51,7 +51,7 @@ class TransactionViewModelTest {
     fun `should success when getCurrentRates() returns proper data`() {
         // Given
         val data = FakeData.givenRatesData()
-        `when`(getExchangeRates.execute()).thenReturn(Single.just(data))
+        `when`(getExchangeRates.execute()).thenReturn(Single.just(DataState.Success(data)))
         // When
         getExchangeRates.execute()
         transactionViewModel.changeRatesDataState(data)
