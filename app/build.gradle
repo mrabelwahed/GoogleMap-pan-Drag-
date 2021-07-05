@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 
@@ -19,7 +18,7 @@ android {
         targetSdkVersion Android.targetSDK
         versionCode Android.versionCode
         versionName Android.versionName
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.ramadan.challenge.ui.MyTestRunner"
         multiDexEnabled true
     }
 
@@ -59,25 +58,28 @@ dependencies {
     implementation Libs.liveData
     implementation Libs.multidex
     implementation Libs.fragmentKtx
-    implementation Libs.hiltAndroid
+
     implementation Libs.retrofit
     implementation Libs.rxAdapter
     implementation Libs.loggingInterceptor
     implementation Libs.gsonConverter
+    implementation Libs.hiltAndroid
     kapt Libs.hiltAndroidCompiler
-    implementation Libs.hiltLifeCycleViewModel
-    kapt Libs.hiltCompiler
     implementation Libs.countryCodePiker
 
     //Testing Libs
     testImplementation TestLibs.junit
+    testImplementation TestLibs.mockito
     testImplementation TestLibs.archCoreTesting
+    androidTestImplementation TestLibs.espresso
     androidTestImplementation TestLibs.testRunner
     androidTestImplementation TestLibs.rules
     androidTestImplementation TestLibs.truth
     androidTestImplementation TestLibs.junitExt
-    testImplementation TestLibs.mockito
+
     androidTestImplementation TestLibs.mockitoAndroid
+    androidTestImplementation TestLibs.hiltAndroidTest
+    kaptAndroidTest Libs.hiltAndroidCompiler
 
     testImplementation(project(":test-utils"))
 }

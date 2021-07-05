@@ -1,7 +1,6 @@
 package com.ramadan.challenge.feature.transaction
 
 import androidx.annotation.VisibleForTesting
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.ramadan.challenge.core.common.AppConst.COUNTRY_KENYA_CODE
@@ -12,10 +11,13 @@ import com.ramadan.challenge.core.common.BaseViewModel
 import com.ramadan.challenge.core.common.DataState
 import com.ramadan.challenge.domain.entity.Rates
 import com.ramadan.challenge.domain.inteactor.GetExchangeRates
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class TransactionViewModel @ViewModelInject constructor(
+@HiltViewModel
+class TransactionViewModel  @Inject constructor(
     private val getExchangeRates: GetExchangeRates
 ) : BaseViewModel() {
     private val _ratesDataState: MutableLiveData<DataState<Rates>> = MutableLiveData()
