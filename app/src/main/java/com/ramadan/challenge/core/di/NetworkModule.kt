@@ -2,7 +2,7 @@ package com.ramadan.challenge.core.di
 
 import com.ramadan.challenge.core.common.AppConst.BASE_URL
 import com.ramadan.challenge.core.common.AppConst.TIMEOUT_REQUEST
-import com.ramadan.challenge.data.network.api.RatesAPI
+import com.ramadan.challenge.data.network.api.FoursquareAPI
 import com.ramadan.challenge.data.network.interceptor.AuthInterceptor
 import dagger.Module
 import dagger.Provides
@@ -54,6 +54,6 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideRatesAPI(builder: Retrofit.Builder): RatesAPI =
-        builder.baseUrl(BASE_URL).build().create(RatesAPI::class.java)
+    fun provideRatesAPI(builder: Retrofit.Builder): FoursquareAPI =
+        builder.baseUrl(BASE_URL).build().create(FoursquareAPI::class.java)
 }

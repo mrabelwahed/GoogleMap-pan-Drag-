@@ -1,20 +1,21 @@
 package com.ramadan.challenge.domain.inteactor
 
 import com.ramadan.challenge.core.common.DataState
-import com.ramadan.challenge.domain.entity.Rates
+import com.ramadan.challenge.domain.entity.Restaurant
 import com.ramadan.challenge.domain.error.ErrorHandler
 import com.ramadan.challenge.domain.error.Failure
-import com.ramadan.challenge.domain.repository.RatesRepository
+import com.ramadan.challenge.domain.repository.RestaurantsRepository
+import com.ramadan.challenge.feature.restaurants.map.Dto
 import io.reactivex.Single
 import retrofit2.HttpException
 import java.net.HttpURLConnection
 import java.net.UnknownHostException
 import javax.inject.Inject
 
-class GetExchangeRates @Inject constructor(private val repository: RatesRepository) :
-    Usecase<Single<DataState<Rates>>> ,ErrorHandler{
-    override fun execute(): Single<DataState<Rates>> {
-        return repository.getCurrentRates().onErrorReturn { DataState.Error(getError(it)) }
+class GetRestaurants @Inject constructor(private val repository: RestaurantsRepository) :
+    Usecase<Dto, Single<DataState<List<Restaurant>>>>, ErrorHandler {
+    override fun execute(param: Dto): Single<DataState<List<Restaurant>>> {
+        return repository.getRestaurants(param).onErrorReturn { DataState.Error(getError(it)) }
     }
 
     override fun getError(throwable: Throwable): Failure {

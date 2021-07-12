@@ -1,5 +1,5 @@
 package com.ramadan.challenge.domain.inteactor
 
-interface Usecase<R> {
-    fun execute(): R
+interface Usecase<T, R> {
+    fun execute(param: T): R
 }

@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
-
+apply plugin: 'kotlin-android-extensions'
 junitJacoco {
     jacocoVersion = '0.8.4' // type String
     includeNoLocationClasses = false // type boolean
@@ -38,6 +38,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    androidExtensions {
+        experimental = true
+    }
+
     buildFeatures {
         viewBinding true
     }
@@ -58,14 +62,17 @@ dependencies {
     implementation Libs.liveData
     implementation Libs.multidex
     implementation Libs.fragmentKtx
-
     implementation Libs.retrofit
     implementation Libs.rxAdapter
     implementation Libs.loggingInterceptor
     implementation Libs.gsonConverter
     implementation Libs.hiltAndroid
+    implementation Libs.googleMap
+    implementation Libs.locationServices
     kapt Libs.hiltAndroidCompiler
-    implementation Libs.countryCodePiker
+    implementation Libs.timber
+    implementation Libs.permissionsDispatcher
+    kapt Libs.permissionsDispatcherProcessor
 
     //Testing Libs
     testImplementation TestLibs.junit
@@ -76,7 +83,6 @@ dependencies {
     androidTestImplementation TestLibs.rules
     androidTestImplementation TestLibs.truth
     androidTestImplementation TestLibs.junitExt
-
     androidTestImplementation TestLibs.mockitoAndroid
     androidTestImplementation TestLibs.hiltAndroidTest
     kaptAndroidTest Libs.hiltAndroidCompiler

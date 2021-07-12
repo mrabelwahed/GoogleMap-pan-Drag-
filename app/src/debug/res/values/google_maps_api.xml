@@ -1,0 +1,5 @@
+<resources>
+
+    <!-- this is not secure  , the api key should ne encoded as Base 64 and Inserted in Native Module using NKD -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCOLYyl4jbIMuy-06ekImOTxdwj9ucYvLU</string>
+</resources>

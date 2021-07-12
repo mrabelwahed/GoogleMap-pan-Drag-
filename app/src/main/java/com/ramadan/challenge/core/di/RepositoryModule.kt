@@ -1,8 +1,8 @@
 package com.ramadan.challenge.core.di
 
-import com.ramadan.challenge.data.network.api.RatesAPI
-import com.ramadan.challenge.data.repository.RatesRepositoryImpl
-import com.ramadan.challenge.domain.repository.RatesRepository
+import com.ramadan.challenge.data.network.api.FoursquareAPI
+import com.ramadan.challenge.data.repository.RestaurantRepositoryImpl
+import com.ramadan.challenge.domain.repository.RestaurantsRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,7 +14,7 @@ import javax.inject.Singleton
 class RepositoryModule {
     @Singleton
     @Provides
-    fun providesRatesRepository(ratesAPI: RatesAPI): RatesRepository {
-        return RatesRepositoryImpl(ratesAPI)
+    fun providesRestaurantsRepository(foursquareAPI: FoursquareAPI): RestaurantsRepository {
+        return RestaurantRepositoryImpl(foursquareAPI)
     }
 }

@@ -11,7 +11,11 @@ class AuthInterceptor : Interceptor {
         val original: Request = chain.request()
         val originalUrl: HttpUrl = original.url()
         val url = originalUrl.newBuilder()
-            .addQueryParameter(AppConst.APP_ID, AppConst.RATES_API_KEY)
+            .addQueryParameter(AppConst.CLIENT_ID, AppConst.CLIENT_ID_VALUE)
+            .addQueryParameter(AppConst.CLIENT_SECRET, AppConst.CLIENT_SECRET_VALUE)
+            .addQueryParameter(AppConst.VERSION, "20210709")
+            .addQueryParameter(AppConst.QUERY, AppConst.DEFAULT_QUERY)
+
             .build()
         val requestBuilder: Request.Builder = original.newBuilder().url(url)
         val request: Request = requestBuilder.build()

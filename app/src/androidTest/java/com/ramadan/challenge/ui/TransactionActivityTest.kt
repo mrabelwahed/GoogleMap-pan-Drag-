@@ -7,17 +7,16 @@ import org.junit.Rule
 import org.junit.Test
 
 @HiltAndroidTest
-class TransactionActivityTest{
-   @get:Rule
-   var hiltRule = HiltAndroidRule(this)
+class TransactionActivityTest {
+    @get:Rule
+    var hiltRule = HiltAndroidRule(this)
 //
     @Before
-    fun setup(){
-       hiltRule.inject()
+    fun setup() {
+        hiltRule.inject()
     }
 
     @Test
-    fun testOOOO(){
-
+    fun testOOOO() {
     }
 }

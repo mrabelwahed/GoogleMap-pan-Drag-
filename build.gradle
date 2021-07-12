@@ -4,14 +4,13 @@ buildscript {
     ext.kotlin_version = Versions.KOTLIN
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
     dependencies {
         classpath BuildPlugins.androidGradle
         classpath BuildPlugins.kotlinGradlePlugin
         classpath BuildPlugins.jacocoPlugin
         classpath BuildPlugins.hiltPlugin
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 plugins {
@@ -21,7 +20,7 @@ plugins {
 allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()
     }
     apply plugin: "org.jlleitschuh.gradle.ktlint"
 }
