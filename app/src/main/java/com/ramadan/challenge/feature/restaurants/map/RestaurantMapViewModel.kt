@@ -22,6 +22,8 @@ class RestaurantMapViewModel @Inject constructor(private val getRestaurants: Get
 
     val markers = HashMap<Marker, Restaurant>()
 
+    var fragCreated  : Boolean = false
+
     fun getRestaurants(location: Dto) {
         if (_restaurantsDataState.value != null) return
 

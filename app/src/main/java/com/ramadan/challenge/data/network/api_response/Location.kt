@@ -8,7 +8,7 @@ data class Location(
     @SerializedName("lng") val lng: Double,
     @SerializedName("labeledLatLngs") val labeledLatLngs: List<LabeledLatLngs>,
     @SerializedName("distance") val distance: Int,
-    @SerializedName("postalCode") val postalCode: Int,
+    @SerializedName("postalCode") val postalCode: String,
     @SerializedName("cc") val cc: String,
     @SerializedName("city") val city: String,
     @SerializedName("state") val state: String,

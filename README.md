@@ -1,12 +1,18 @@
 
 ## Challenge
 
-1. Display restaurants around the user’s current location on a map ○ Use the FourSquare Search API to query for restaurants: https://developer.foursquare.com/docs/api/venues/search
+1. Display restaurants around the user’s current location on a map ○
+ Use the FourSquare Search API to query for restaurants: https://developer.foursquare.com/docs/api/venues/search
 2. Load more restaurants when the user pans the map.
  2.1 Cache results in-memory (no need to persist the cache).
  2.2 Read restaurants from the cache to show results early, but only if the restaurants
 fit within the user’s current viewport.
 3. Include a simple restaurant detail page.
+
+## before run
+
+1. Get Client ID and Secret fro FourSquare and update AppConst file
+2- Get your Google Map key and Update google_maps.xml file
 
 ## How to run the project
 

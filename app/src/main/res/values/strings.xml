@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Dott</string>
+    <string name="app_name">Map Pan</string>
     <string name="accept">Accept</string>
     <string name="deny">Deny</string>
     <string name="permission_alert">Location permission is needed to get The restaurants around your location.</string>

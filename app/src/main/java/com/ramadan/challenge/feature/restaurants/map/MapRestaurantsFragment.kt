@@ -40,7 +40,7 @@ import javax.inject.Inject
 class MapRestaurantsFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener, IDragCallback {
     @Inject
     lateinit var appNavigator: AppNavigator
-    private lateinit var mMap: GoogleMap
+     private var mMap: GoogleMap? =null
     private val restaurantMapViewModel: RestaurantMapViewModel by viewModels()
     private val openSettingsActivity =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -53,6 +53,7 @@ class MapRestaurantsFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnM
 
     private var _binding: FragmentMapRestaurantsBinding? = null
     private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -60,6 +61,7 @@ class MapRestaurantsFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnM
     ): View {
         _binding = FragmentMapRestaurantsBinding.inflate(inflater, container, false)
         _binding?.root?.setDrag(this)
+        restaurantMapViewModel.fragCreated = (savedInstanceState != null)
         return binding.root
     }
 
@@ -68,7 +70,6 @@ class MapRestaurantsFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnM
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
         this.getCurrentLocationWithPermissionCheck()
-        observerRestaurants()
     }
 
     private fun observerRestaurants() {
@@ -94,11 +95,26 @@ class MapRestaurantsFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnM
     }
 
     private fun renderMarkers(venues: List<Restaurant>) {
-        venues.forEach {
-            val markerLoc = LatLng(it.latitude, it.longitude)
-            val marker = mMap.addMarker(MarkerOptions().position(markerLoc).title(it.name))
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(markerLoc))
-            restaurantMapViewModel.markers[marker] = it
+        val markersToBeDisplayed = ArrayList<Restaurant>()
+        val mainList = restaurantMapViewModel.markers.values
+       venues.forEach {
+           if (!mainList.contains(it))
+              markersToBeDisplayed.add(it)
+       }
+        if(restaurantMapViewModel.fragCreated && markersToBeDisplayed.isEmpty()){
+            mainList.forEach {
+                val markerLoc = LatLng(it.latitude, it.longitude)
+                val marker = mMap?.addMarker(MarkerOptions().position(markerLoc).title(it.name))
+                mMap?.moveCamera(CameraUpdateFactory.newLatLng(markerLoc))
+            }
+        }else{
+            markersToBeDisplayed.forEach {
+                val markerLoc = LatLng(it.latitude, it.longitude)
+                val marker = mMap?.addMarker(MarkerOptions().position(markerLoc).title(it.name))
+                mMap?.moveCamera(CameraUpdateFactory.newLatLng(markerLoc))
+                if (marker!=null)
+                    restaurantMapViewModel.markers[marker] = it
+            }
         }
     }
 
@@ -107,9 +123,10 @@ class MapRestaurantsFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnM
         if (isLocationEnabled()) {
             getUserLocation { location ->
                 Timber.e("available lat is %s , lon is %s", location.latitude, location.longitude)
-                val currentBounds = mMap.projection.visibleRegion.latLngBounds
+                val currentBounds = mMap?.projection?.visibleRegion?.latLngBounds
                 val latlng = LatLng(location.latitude, location.longitude)
-                restaurantMapViewModel.getRestaurants(Dto(latlng, currentBounds))
+                currentBounds?.let {  restaurantMapViewModel.getRestaurants(Dto(latlng, it)) }
+
             }
         } else {
             MaterialAlertDialogBuilder(getRootActivity())
@@ -163,9 +180,10 @@ class MapRestaurantsFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnM
     @SuppressLint("MissingPermission")
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        mMap.setOnMarkerClickListener(this)
-        mMap.setMinZoomPreference(15f)
-        mMap.isMyLocationEnabled = true
+        mMap?.setOnMarkerClickListener(this)
+        mMap?.setMinZoomPreference(15f)
+        mMap?.isMyLocationEnabled = true
+        observerRestaurants()
     }
 
     override fun onMarkerClick(marker: Marker?): Boolean {
@@ -187,9 +205,19 @@ class MapRestaurantsFragment : BaseFragment(), OnMapReadyCallback, GoogleMap.OnM
     }
 
     override fun onDrag() {
-        val currentLatLng = mMap.projection.visibleRegion.latLngBounds.center
-        val currentBounds = mMap.projection.visibleRegion.latLngBounds
+        if(restaurantMapViewModel.fragCreated)
+             restaurantMapViewModel.fragCreated = false
+        val currentLatLng = mMap?.cameraPosition?.target
+        val currentBounds = mMap?.projection?.visibleRegion?.latLngBounds
         restaurantMapViewModel.resetRestaurantsDataState()
-        restaurantMapViewModel.getRestaurants(Dto(currentLatLng, currentBounds))
+        if(currentBounds !=null && currentLatLng!=null)
+          restaurantMapViewModel.getRestaurants(Dto(currentLatLng, currentBounds))
+        Timber.e("current latlng %s , %s",currentLatLng?.longitude , currentLatLng?.longitude)
     }
+
+
+
+
+
+
 }
