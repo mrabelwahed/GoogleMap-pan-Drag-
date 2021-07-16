@@ -33,6 +33,7 @@ fit within the user’s current viewport.
 
  1. to check the formatting. Run the following command in terminal
      ./gradlew ktlintCheck
+
  2. to format the code. Run the following command in terminal
     ./gradlew ktlintFormat
 
